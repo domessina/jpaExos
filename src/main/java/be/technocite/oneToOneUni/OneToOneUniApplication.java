@@ -90,5 +90,9 @@ public class OneToOneUniApplication implements CommandLineRunner {
 		personRepository.save(person1);
 		personRepository.save(person2);
 		personRepository.save(person3);
+
+		System.out.println(personRepository.findByName("P1").get(0).getName());
+
+
 	}
 }

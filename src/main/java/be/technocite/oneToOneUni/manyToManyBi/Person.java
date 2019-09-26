@@ -18,8 +18,15 @@ public class Person {
             inverseJoinColumns = @JoinColumn(name = "appointment_id"))
     private Collection<Appointment> appointments;
 
+    protected Person() {
+    }
+
     public Person(String name, Collection<Appointment> appointments) {
         this.name = name;
         this.appointments = appointments;
+    }
+
+    public String getName() {
+        return name;
     }
 }
