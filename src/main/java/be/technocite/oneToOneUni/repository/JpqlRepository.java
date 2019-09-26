@@ -1,5 +1,6 @@
 package be.technocite.oneToOneUni.repository;
 
+import be.technocite.oneToOneUni.idString.MedicalCase;
 import be.technocite.oneToOneUni.manyToManyBi.Person;
 import be.technocite.oneToOneUni.model.oneToOneUni.Customer;
 import be.technocite.oneToOneUni.oneToMany.Owner;
@@ -53,5 +54,19 @@ public class JpqlRepository {
                 .getResultList();
     }
 
+    public Collection<Person> findAllNamed(String text) {
+        return entityManager.createQuery("from Person p left join p.appointments a left join a.places pl where a.date is not null and p.name is not empty and pl.cityName = :text", Person.class)
+                .setParameter("text", text)
+                .getResultList();
+    }
+
+    public List<MedicalCase> findByNissAndIllnessId(String illnessName) {
+        return entityManager.createQuery("select distinct mc1 from MedicalCase mc1, Illness i where mc1.illnessId = i.id and i.name like %:illnessName%", MedicalCase.class)
+                .setParameter("illnessName", illnessName)
+                .getResultList();
+    }
+
+    /*SELECT DISTINCT mag1 FROM Magazine mag1, Magazine mag2
+WHERE mag1.price > mag2.price AND mag2.publisher.name = 'Adventure'*/
 
 }

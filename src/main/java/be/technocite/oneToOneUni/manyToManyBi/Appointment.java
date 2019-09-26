@@ -16,12 +16,22 @@ public class Appointment {
     @ManyToMany(mappedBy = "appointments")
     private Collection<Person> persons;
 
+    @OneToMany
+    @JoinColumn(name = "appointment_id")
+    private Collection<Place> places;
+
     protected Appointment() {
     }
 
     public Appointment(Date date, Collection<Person> persons) {
         this.date = date;
         this.persons = persons;
+    }
+
+    public Appointment(Date date, Collection<Person> persons, Collection<Place> places) {
+        this.date = date;
+        this.persons = persons;
+        this.places = places;
     }
 
     public Appointment(Date date) {
