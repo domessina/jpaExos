@@ -8,13 +8,13 @@ import java.util.Date;
 @Table(name = "appointment")
 public class Appointment {
 
-    @ManyToMany(mappedBy = "appointments")
-    Collection<Person> persons;
     @Id
     @GeneratedValue
     private Long id;
     @Temporal(TemporalType.DATE)
     private Date date;
+    @ManyToMany(mappedBy = "appointments")
+    private Collection<Person> persons;
 
     protected Appointment() {
     }
