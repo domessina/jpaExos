@@ -1,12 +1,9 @@
 package be.technocite.oneToOneUni.maniToOneUni;
 
-import be.technocite.oneToOneUni.oneToManyBi.Reservation;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.Collection;
 
 @Entity
 @Table(name = "ship")

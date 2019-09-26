@@ -2,6 +2,8 @@ package be.technocite.oneToOneUni;
 
 import be.technocite.oneToOneUni.maniToOneUni.Journey;
 import be.technocite.oneToOneUni.maniToOneUni.Ship;
+import be.technocite.oneToOneUni.manyToManyBi.Appointment;
+import be.technocite.oneToOneUni.manyToManyBi.Person;
 import be.technocite.oneToOneUni.model.oneToOneUni.Address;
 import be.technocite.oneToOneUni.model.oneToOneUni.Customer;
 import be.technocite.oneToOneUni.oneToMany.Owner;
@@ -18,6 +20,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 
 @SpringBootApplication
 public class OneToOneUniApplication implements CommandLineRunner {
@@ -34,6 +37,10 @@ public class OneToOneUniApplication implements CommandLineRunner {
 	private JourneyRepository journeyRepository;
 	@Autowired
 	private ShipRepository shipRepository;
+	@Autowired
+	private PersonRepository personRepository;
+	@Autowired
+	private AppointmentRepository appointmentRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(OneToOneUniApplication.class, args);
@@ -66,5 +73,22 @@ public class OneToOneUniApplication implements CommandLineRunner {
 		journeyRepository.save(new Journey("Viva Carthagena", titanic_ii));
 		journeyRepository.save(new Journey("Viva l'Algérie", titanic_ii));
 
+//		many to many bidirectionnel Person * <-> * Appointment
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(2019, Calendar.NOVEMBER, 1);
+		Appointment appointment1 = new Appointment(calendar.getTime());
+		calendar.set(1994, Calendar.JUNE, 29);
+		Appointment appointment2 = new Appointment(calendar.getTime());
+
+		Person person1 = new Person("P1", Arrays.asList(appointment1));
+		Person person2 = new Person("P2", Arrays.asList(appointment1, appointment2));
+		Person person3 = new Person("P3", Arrays.asList(appointment1, appointment2));
+
+		appointmentRepository.save(appointment1);
+		appointmentRepository.save(appointment2);
+
+		personRepository.save(person1);
+		personRepository.save(person2);
+		personRepository.save(person3);
 	}
 }
