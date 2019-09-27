@@ -22,10 +22,10 @@ public class JpqlRepository {
         return entityManager.find(Customer.class, id);
     }
 
-    public List<Person> selectAllPersonsNameAndId() {
-        return entityManager.createQuery("select p.id, p.name from Person as p", Person.class)
+   /* public List<Object[2]> selectAllPersonsNameAndId() {
+        return entityManager.createQuery("select p.id, p.name from Person as p")
                 .getResultList();
-    }
+    }*/
 
     public List<Phone> selectPhoneByOwnerId(Long ownerId, String brand) {
         return entityManager.createQuery("from Phone where owner_id = :ownerId and brand = :brand", Phone.class)
@@ -49,20 +49,22 @@ public class JpqlRepository {
                 .getSingleResult();
     }
 
-    public Collection<Person> findAllOrdered() {
+    public List<Person> findAllOrdered() {
         return entityManager.createQuery("from Person p order by lower(p.name)", Person.class)
                 .getResultList();
     }
 
-    public Collection<Person> findAllNamed(String text) {
-        return entityManager.createQuery("from Person p left join p.appointments a left join a.places pl where a.date is not null and p.name is not empty and pl.cityName = :text", Person.class)
+    // Attention le select p avant est important pour ne pas que Hibernate croie qu'il faut retourner les appointements et places avec les personnes
+    public List<Person> findPersonsConcernedByPlaceName(String text) {
+        return entityManager.createQuery("select p from Person p left join p.appointments a left join a.places pl where a.date is not null and p.name is not empty and pl.cityName = :text", Person.class)
                 .setParameter("text", text)
                 .getResultList();
     }
 
+    // jointure avec id String et non par objet entité
     public List<MedicalCase> findByNissAndIllnessId(String illnessName) {
-        return entityManager.createQuery("select distinct mc1 from MedicalCase mc1, Illness i where mc1.illnessId = i.id and i.name like %:illnessName%", MedicalCase.class)
-                .setParameter("illnessName", illnessName)
+        return entityManager.createQuery("select distinct mc1 from MedicalCase mc1, Illness i where mc1.illnessId = i.id and lower(i.name) like :illnessName", MedicalCase.class)
+                .setParameter("illnessName", "%" + illnessName + "%")
                 .getResultList();
     }
 

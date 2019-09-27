@@ -21,4 +21,12 @@ public class Place {
     public Place(String cityName) {
         this.cityName = cityName;
     }
+
+    @Override
+    public String toString() {
+        return "Place{" +
+                "id=" + id +
+                ", cityName='" + cityName + '\'' +
+                '}';
+    }
 }

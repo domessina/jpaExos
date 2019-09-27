@@ -23,4 +23,8 @@ public class Illness {
         this.gravityLevel = gravityLevel;
         this.name = name;
     }
+
+    public Long getId() {
+        return id;
+    }
 }

@@ -13,7 +13,7 @@ public class Person {
 
     private String name;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "person_appointment", joinColumns = {@JoinColumn(name = "person_id")},
             inverseJoinColumns = @JoinColumn(name = "appointment_id"))
     private Collection<Appointment> appointments;
@@ -28,5 +28,18 @@ public class Person {
 
     public String getName() {
         return name;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", appointments=" + appointments +
+                '}';
     }
 }

@@ -14,4 +14,13 @@ public class PatientData {
         this.bloodType = bloodType;
         this.gender = gender;
     }
+
+    @Override
+    public String toString() {
+        return "PatientData{" +
+                "NISS='" + NISS + '\'' +
+                ", bloodType='" + bloodType + '\'' +
+                ", gender='" + gender + '\'' +
+                '}';
+    }
 }

@@ -16,7 +16,7 @@ public class Appointment {
     @ManyToMany(mappedBy = "appointments")
     private Collection<Person> persons;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "appointment_id")
     private Collection<Place> places;
 
@@ -36,5 +36,18 @@ public class Appointment {
 
     public Appointment(Date date) {
         this.date = date;
+    }
+
+    public void setPlaces(Collection<Place> places) {
+        this.places = places;
+    }
+
+    @Override
+    public String toString() {
+        return "Appointment{" +
+                "id=" + id +
+                ", date=" + date +
+                ", places=" + places +
+                '}';
     }
 }

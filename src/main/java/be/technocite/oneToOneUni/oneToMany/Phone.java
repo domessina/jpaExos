@@ -21,4 +21,12 @@ public class Phone {
     }
     
     protected Phone() {}
+
+    @Override
+    public String toString() {
+        return "Phone{" +
+                "id=" + id +
+                ", brand='" + brand + '\'' +
+                '}';
+    }
 }

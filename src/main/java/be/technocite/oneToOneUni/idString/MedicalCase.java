@@ -15,15 +15,23 @@ public class MedicalCase {
     @Column(updatable = false)
     private PatientData address;
 
-    @OneToMany(cascade = CascadeType.ALL)
     @Basic(optional = false)
-    private String illnessId;
+    private Long illnessId;
 
     protected MedicalCase() {
     }
 
-    public MedicalCase(PatientData address, String illnessId) {
+    public MedicalCase(PatientData address, Long illnessId) {
         this.address = address;
         this.illnessId = illnessId;
+    }
+
+    @Override
+    public String toString() {
+        return "MedicalCase{" +
+                "id=" + id +
+                ", address=" + address +
+                ", illnessId=" + illnessId +
+                '}';
     }
 }
