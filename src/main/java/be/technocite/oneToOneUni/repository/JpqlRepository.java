@@ -54,7 +54,7 @@ public class JpqlRepository {
                 .getResultList();
     }
 
-    // Attention le select p avant est important pour ne pas que Hibernate croie qu'il faut retourner les appointements et places avec les personnes
+    // Attention le select p avant est important pour ne pas qu' Hibernate croive qu'il doit retourner les appointements et les places avec les personnes
     public List<Person> findPersonsConcernedByPlaceName(String text) {
         return entityManager.createQuery("select p from Person p left join p.appointments a left join a.places pl where a.date is not null and p.name is not empty and pl.cityName = :text", Person.class)
                 .setParameter("text", text)
@@ -68,6 +68,7 @@ public class JpqlRepository {
                 .getResultList();
     }
 
+    //returns magazines whose price is greater than the price of magazines published by "Adventure" publishers
     /*SELECT DISTINCT mag1 FROM Magazine mag1, Magazine mag2
 WHERE mag1.price > mag2.price AND mag2.publisher.name = 'Adventure'*/
 
